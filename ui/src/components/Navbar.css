@@ -1,0 +1,35 @@
+/* Navbar.css - simple navigation bar styling */
+.navbar {
+  display: flex;
+  align-items: center;
+  background: #1976d2;
+  color: #fff;
+  padding: 0.5rem 2rem;
+  justify-content: space-between;
+}
+
+.navbar-logo {
+  font-weight: bold;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.2s;
+}
+
+.navbar-links li.active a,
+.navbar-links li a:hover {
+  color: #ffd600;
+}

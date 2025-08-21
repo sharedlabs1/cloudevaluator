@@ -1,0 +1,13 @@
+.profile-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.profile-details {
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 2;
+}

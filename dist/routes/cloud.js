@@ -1,0 +1,20 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const auth_1 = require("../middleware/auth");
+const cloudController_1 = require("../controllers/cloudController");
+const router = (0, express_1.Router)();
+router.get('/providers', auth_1.authenticateToken);
+router.post('/', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin']), cloudController_1.createCloudAccount);
+router.get('/', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), cloudController_1.getCloudAccounts);
+router.get('/:id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']));
+router.put('/:id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin']), cloudController_1.updateCloudAccount);
+router.delete('/:id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin']), cloudController_1.deleteCloudAccount);
+router.post('/:id/test', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin']), cloudController_1.testCloudConnection);
+router.get('/:id/usage', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']));
+router.post('/bulk-import', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin']));
+router.post('/allocate', cloudController_1.allocateCloudAccount);
+router.get('/allocations', cloudController_1.getCloudAllocations);
+router.delete('/allocations/:id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), cloudController_1.removeCloudAllocation);
+exports.default = router;
+//# sourceMappingURL=cloud.js.map

@@ -1,0 +1,38 @@
+.assessment-detail-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.question-block {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f5f6fa;
+  border-radius: 6px;
+}
+.question-block pre {
+  background: #222;
+  color: #fff;
+  padding: 0.5rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  overflow-x: auto;
+}
+.cloud-allocation-list {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background: #e3f2fd;
+  border-radius: 6px;
+}
+.cloud-allocation-list li {
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+.cloud-allocation-link {
+  color: #1976d2;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 0.5rem;
+}

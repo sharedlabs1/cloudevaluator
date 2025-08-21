@@ -1,0 +1,1 @@
+{"version":3,"file":"batchService.d.ts","sourceRoot":"","sources":["../../src/services/batchService.ts"],"names":[],"mappings":"AAAA,qBAAa,YAAY;IACjB,WAAW,CAAC,IAAI,EAAE,GAAG;IAIrB,kBAAkB,CAAC,OAAO,EAAE,MAAM,EAAE,UAAU,EAAE,MAAM,EAAE;;;;IAIxD,sBAAsB,CAAC,OAAO,EAAE,MAAM,EAAE,SAAS,EAAE,MAAM;;;;IAIzD,eAAe,CAAC,OAAO,EAAE,MAAM;;;;CAItC"}

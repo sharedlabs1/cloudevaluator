@@ -1,0 +1,25 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const assessmentController_1 = require("../controllers/assessmentController");
+const questionController_1 = require("../controllers/questionController");
+const auth_1 = require("../middleware/auth");
+const validation_1 = require("../middleware/validation");
+const validators_1 = require("../utils/validators");
+const router = (0, express_1.Router)();
+router.post('/', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), (0, validation_1.validateRequest)(validators_1.createAssessmentSchema), assessmentController_1.createAssessment);
+router.get('/', auth_1.authenticateToken, assessmentController_1.getAssessments);
+router.get('/:id', auth_1.authenticateToken, assessmentController_1.getAssessmentDetails);
+router.post('/allocate', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), assessmentController_1.allocateAssessment);
+router.post('/start', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['student']), assessmentController_1.startAssessment);
+router.post('/submit', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['student']), assessmentController_1.submitAssessment);
+router.post('/validate-task', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['student']));
+router.get('/student/my-assessments', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['student']));
+router.get('/student/:student_assessment_id/progress', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['student']), assessmentController_1.getAssessmentProgress);
+router.get('/results/:student_assessment_id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['student']), assessmentController_1.getAssessmentResults);
+router.put('/:id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), assessmentController_1.updateAssessment);
+router.delete('/:id', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), assessmentController_1.deleteAssessment);
+router.post('/:assessmentId/questions', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), questionController_1.addQuestionToAssessment);
+router.get('/:assessmentId/questions', auth_1.authenticateToken, (0, auth_1.authorizeRoles)(['admin', 'instructor']), questionController_1.getQuestionsForAssessment);
+exports.default = router;
+//# sourceMappingURL=assessments.js.map

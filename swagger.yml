@@ -1,0 +1,421 @@
+openapi: 3.0.0
+info:
+  title: Cloud Evaluator API
+  description: API documentation for the Cloud Evaluator platform
+  version: 1.0.0
+servers:
+  - url: /api
+    description: API base path updated to start with /api
+paths:
+  /evaluation/start:
+    post:
+      summary: Start an evaluation for a specific assessment
+      tags:
+        - Evaluation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentAssessmentId:
+                  type: integer
+                  example: 1
+                initiatedBy:
+                  type: string
+                  example: "admin@example.com"
+      responses:
+        '201':
+          description: Evaluation started successfully
+        '400':
+          description: Missing required fields
+        '500':
+          description: Failed to start evaluation
+  /evaluation/cancel:
+    post:
+      summary: Cancel an ongoing evaluation
+      tags:
+        - Evaluation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                evaluationJobId:
+                  type: integer
+                  example: 123
+                userId:
+                  type: string
+                  example: "admin@example.com"
+      responses:
+        '200':
+          description: Evaluation cancelled successfully
+        '400':
+          description: Missing required fields or failed to cancel evaluation
+        '500':
+          description: Failed to cancel evaluation
+  /evaluation/retry:
+    post:
+      summary: Retry a failed evaluation
+      tags:
+        - Evaluation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                originalJobId:
+                  type: integer
+                  example: 123
+                userId:
+                  type: string
+                  example: "admin@example.com"
+      responses:
+        '201':
+          description: Evaluation retry started successfully
+        '400':
+          description: Missing required fields or original job not found
+        '500':
+          description: Failed to retry evaluation
+  /evaluation/logs/{studentAssessmentId}:
+    get:
+      summary: Retrieve logs or error details for failed evaluations
+      tags:
+        - Evaluation
+      parameters:
+        - name: studentAssessmentId
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Logs retrieved successfully
+        '400':
+          description: Invalid studentAssessmentId
+        '500':
+          description: Failed to retrieve logs
+  /proctor/start:
+    post:
+      summary: Start a proctoring session
+      tags:
+        - Proctoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                studentAssessmentId:
+                  type: integer
+                  example: 1
+                proctorId:
+                  type: integer
+                  example: 2
+      responses:
+        '201':
+          description: Proctoring session started successfully
+        '400':
+          description: Missing required fields
+        '500':
+          description: Failed to start proctoring session
+  /proctor/violation:
+    post:
+      summary: Record a violation during a proctoring session
+      tags:
+        - Proctoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionId:
+                  type: integer
+                  example: 1
+                violationType:
+                  type: string
+                  example: "cheating"
+                evidence:
+                  type: object
+                  example: { screenshot: "base64string" }
+      responses:
+        '200':
+          description: Violation recorded successfully
+        '400':
+          description: Missing required fields
+        '500':
+          description: Failed to record violation
+  /proctor/recording:
+    post:
+      summary: Save a recording for a proctoring session
+      tags:
+        - Proctoring
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sessionId:
+                  type: integer
+                  example: 1
+                recordingType:
+                  type: string
+                  enum: ["screen", "camera"]
+                  example: "screen"
+                filePath:
+                  type: string
+                  example: "/recordings/session1/screen.mp4"
+      responses:
+        '200':
+          description: Recording saved successfully
+        '400':
+          description: Missing required fields
+        '500':
+          description: Failed to save recording
+  /auth/login:
+    post:
+      summary: User login
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@example.com"
+                password:
+                  type: string
+                  example: "password123"
+      responses:
+        '200':
+          description: Login successful
+        '401':
+          description: Invalid credentials
+        '500':
+          description: Internal server error
+  /auth/register:
+    post:
+      summary: User registration
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@example.com"
+                username:
+                  type: string
+                  example: "john_doe"
+                password:
+                  type: string
+                  example: "password123"
+                role:
+                  type: string
+                  example: "student"
+                first_name:
+                  type: string
+                  example: "John"
+                last_name:
+                  type: string
+                  example: "Doe"
+      responses:
+        '201':
+          description: User registered successfully
+        '400':
+          description: Validation error
+        '500':
+          description: Internal server error
+  /users/profile:
+    get:
+      summary: Get user profile
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User profile retrieved successfully
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal server error
+  /users:
+    post:
+      summary: Create a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: "user@example.com"
+                username:
+                  type: string
+                  example: "johndoe"
+                password:
+                  type: string
+                  example: "password123"
+                role:
+                  type: string
+                  example: "student"
+                first_name:
+                  type: string
+                  example: "John"
+                last_name:
+                  type: string
+                  example: "Doe"
+      responses:
+        '201':
+          description: User created successfully
+        '400':
+          description: Validation error
+        '500':
+          description: Internal server error
+  /cloud/accounts:
+    get:
+      summary: Get cloud accounts
+      tags:
+        - Cloud
+      responses:
+        '200':
+          description: Cloud accounts retrieved successfully
+        '500':
+          description: Internal server error
+  /cloud/accounts:
+    post:
+      summary: Create a cloud account
+      tags:
+        - Cloud
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "AWS Account"
+                provider:
+                  type: string
+                  enum: ["aws", "azure", "gcp"]
+                  example: "aws"
+                credentials:
+                  type: object
+                  example: { accessKeyId: "AKIA...", secretAccessKey: "..." }
+      responses:
+        '201':
+          description: Cloud account created successfully
+        '400':
+          description: Validation error
+        '500':
+          description: Internal server error
+  /cloud/accounts/{id}/test:
+    post:
+      summary: Test the connection of a cloud account
+      tags:
+        - Cloud
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            example: 1
+      responses:
+        '200':
+          description: Connection test successful
+        '400':
+          description: Invalid cloud account ID
+        '500':
+          description: Failed to test connection
+  /sockets/evaluation:
+    get:
+      summary: WebSocket events for evaluation
+      tags:
+        - Sockets
+      description: |
+        WebSocket events related to evaluation. Clients can connect to the WebSocket server and listen to or emit the following events:
+
+        **Events:**
+        - `joinAssessment`: Join a specific assessment room. Requires `assessmentId`.
+        - `requestEvaluation`: Request evaluation for a specific task. Requires `studentAssessmentId` and `taskId`.
+        - `taskUpdate`: Receive updates about task evaluation. Broadcasted to the relevant assessment room.
+
+      responses:
+        '101':
+          description: Switching protocols to WebSocket
+        '400':
+          description: Bad request or missing authentication token
+        '500':
+          description: Internal server error
+  /batches:
+    post:
+      summary: Create a new batch
+      tags:
+        - Batch
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: "Batch A"
+                description:
+                  type: string
+                  example: "Batch Description"
+                instructor_id:
+                  type: integer
+                  example: 1
+                cloud_account_id:
+                  type: integer
+                  example: 1
+                student_ids:
+                  type: array
+                  items:
+                    type: integer
+                  example: [1, 2, 3]
+                status:
+                  type: string
+                  example: "active"
+      responses:
+        '201':
+          description: Batch created successfully
+        '400':
+          description: Validation error
+        '500':
+          description: Internal server error
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

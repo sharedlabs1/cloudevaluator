@@ -1,0 +1,1 @@
+{"version":3,"file":"Assessment.d.ts","sourceRoot":"","sources":["../../src/models/Assessment.ts"],"names":[],"mappings":"AAAA,OAAO,EAAa,KAAK,EAAE,MAAM,WAAW,CAAC;AAI7C,qBAAa,UAAW,SAAQ,KAAK;IAC5B,EAAE,EAAG,MAAM,CAAC;IACZ,IAAI,EAAG,MAAM,CAAC;IACd,WAAW,EAAG,MAAM,CAAC;IACrB,KAAK,EAAG,MAAM,CAAC;IACf,SAAS,EAAG,IAAI,CAAC;IACjB,SAAS,EAAG,IAAI,CAAC;CACzB"}

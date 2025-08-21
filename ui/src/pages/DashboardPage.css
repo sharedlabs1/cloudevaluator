@@ -1,0 +1,68 @@
+/* DashboardPage.css - styles for dashboard layout, cards, and tables */
+.dashboard-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.dashboard-section {
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: #fafbfc;
+}
+
+.dashboard-table th, .dashboard-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+}
+
+.dashboard-table th {
+  background: #f5f6fa;
+  font-weight: 600;
+}
+
+.dashboard-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.dashboard-card {
+  background: #f5f6fa;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 1.25rem 1.5rem;
+  min-width: 220px;
+  flex: 1 1 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.card-desc {
+  color: #555;
+}
+
+.card-marks, .card-status {
+  font-size: 0.95rem;
+  color: #1976d2;
+}
+
+.status-badge.status-inprogress { background: orange; }
+.status-badge.status-submitted { background: blue; }
+.status-badge.status-graded { background: green; }
